@@ -1,0 +1,67 @@
+<div class="bt-form">
+	<div class='plugin_version'></div>
+	<div class="bt-w-main">
+		<div class="bt-w-menu">
+			<p class="bgw" onclick="nginxPluginService('nginx',$('.plugin_version').attr('version'));">服务</p>
+			<p onclick="pluginInitD('nginx', $('.plugin_version').attr('version'));">自启动</p>
+			<p onclick="nginxConfig();">配置文件</p>
+			<p onclick="nginxVirtualHosts();">虚拟主机</p>
+			<p onclick="nginxRunInfo();">运行状态</p>
+			<p onclick="nginxErrorLogs();">错误日志</p>
+			<p onclick="nginxAccessLogs();">访问日志</p>
+			<p onclick="nginxPerformance();">性能调优</p>
+		</div>
+		<div class="bt-w-con pd15" style="height:555px;overflow: auto;">
+			<div class="soft-man-con"></div>
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+.nginx-status-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.nginx-status-item:last-child {
+    border-bottom: none;
+}
+.nginx-status-label {
+    display: inline-block;
+    width: 120px;
+    font-weight: bold;
+}
+.nginx-status-value {
+    color: #666;
+}
+.nginx-log-container {
+    background: #000;
+    color: #0f0;
+    padding: 15px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+.nginx-vhost-item {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+.nginx-vhost-domain {
+    font-weight: bold;
+    color: #333;
+}
+.nginx-vhost-port {
+    color: #666;
+    font-size: 12px;
+}
+</style>
+
+<script type="text/javascript">
+$.getScript( "/plugins/file?name=nginx&f=js/nginx.js", function(){
+	nginxPluginService('nginx',$('.plugin_version').attr('version'));
+});
+</script>

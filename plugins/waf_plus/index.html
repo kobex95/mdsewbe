@@ -1,0 +1,861 @@
+<style>
+/* WAF Plus 现代化样式 */
+.waf-plus-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    min-height: 100vh;
+}
+
+/* 仪表板卡片样式 */
+.dashboard-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 24px;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.icon-shield { background: linear-gradient(135deg, #4299e1, #3182ce); color: white; }
+.icon-chart { background: linear-gradient(135deg, #48bb78, #38a169); color: white; }
+.icon-alert { background: linear-gradient(135deg, #ed8936, #dd6b20); color: white; }
+.icon-server { background: linear-gradient(135deg, #805ad5, #6b46c1); color: white; }
+
+/* 统计数字样式 */
+.stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 8px 0;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 4px;
+}
+
+.stat-trend {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.trend-up { color: #48bb78; }
+.trend-down { color: #e53e3e; }
+
+/* 图表容器 */
+.chart-container {
+    height: 300px;
+    width: 100%;
+}
+
+/* 控制面板按钮 */
+.control-panel {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4299e1, #3182ce);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+}
+
+.btn-secondary {
+    background: white;
+    color: #4a5568;
+    border: 1px solid #e2e8f0;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: #f7fafc;
+    border-color: #cbd5e0;
+}
+
+/* 表格样式 */
+.waf-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.waf-table th {
+    background: #f7fafc;
+    padding: 16px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #4a5568;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.waf-table td {
+    padding: 16px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #4a5568;
+}
+
+.waf-table tr:hover {
+    background: #f8fafc;
+}
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge-high { background: #fed7d7; color: #c53030; }
+.badge-medium { background: #feebc8; color: #c05621; }
+.badge-low { background: #c6f6d5; color: #2f855a; }
+
+/* 状态指示器 */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.status-active { background: #48bb78; }
+.status-inactive { background: #e53e3e; }
+.status-warning { background: #ed8936; }
+
+/* 搜索框样式 */
+.search-box {
+    position: relative;
+    max-width: 400px;
+    margin-bottom: 24px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 48px 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a0aec0;
+}
+
+/* 分页样式 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.page-btn {
+    padding: 8px 16px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.page-btn:hover {
+    background: #f7fafc;
+    border-color: #cbd5e0;
+}
+
+.page-btn.active {
+    background: #4299e1;
+    color: white;
+    border-color: #4299e1;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .control-panel {
+        flex-direction: column;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+/* 暗色主题支持 */
+.dark-theme {
+    background: #1a202c;
+    color: #e2e8f0;
+}
+
+.dark-theme .dashboard-card {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-theme .waf-table th {
+    background: #4a5568;
+    color: #e2e8f0;
+}
+
+.dark-theme .waf-table td {
+    color: #e2e8f0;
+    border-bottom-color: #4a5568;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* 加载动画 */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #4299e1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+<div class="waf-plus-container">
+    <!-- 导航菜单 -->
+    <div class="bt-w-menu">
+        <p class="bgw" onclick="showDashboard()">仪表板</p>
+        <p onclick="showAttackLogs()">攻击日志</p>
+        <p onclick="showRules()">规则管理</p>
+        <p onclick="showThreatIntel()">威胁情报</p>
+        <p onclick="showSettings()">系统设置</p>
+    </div>
+    
+    <!-- 主内容区域 -->
+    <div class="bt-w-con pd15">
+        <div class="soft-man-con">
+            <!-- 仪表板内容 -->
+            <div id="dashboard-view" class="fade-in">
+                <!-- 控制面板 -->
+                <div class="control-panel">
+                    <button class="btn-primary" onclick="toggleWaf()">
+                        <i class="fas fa-power-off"></i>
+                        <span id="waf-status-text">启用WAF</span>
+                    </button>
+                    <button class="btn-secondary" onclick="refreshDashboard()">
+                        <i class="fas fa-sync-alt"></i>
+                        刷新数据
+                    </button>
+                    <button class="btn-secondary" onclick="exportReports()">
+                        <i class="fas fa-download"></i>
+                        导出报告
+                    </button>
+                </div>
+                
+                <!-- 统计卡片网格 -->
+                <div class="dashboard-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 24px;">
+                    <!-- 攻击拦截统计 -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon icon-shield">🛡️</div>
+                                攻击拦截
+                            </div>
+                            <div class="status-indicator">
+                                <div class="status-dot status-active"></div>
+                                <span>运行中</span>
+                            </div>
+                        </div>
+                        <div class="stat-number" id="attack-count">1,247</div>
+                        <div class="stat-label">今日拦截攻击</div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+12.5% 较昨日</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 实时连接数 -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon icon-server">🌐</div>
+                                实时连接
+                            </div>
+                        </div>
+                        <div class="stat-number" id="connection-count">156</div>
+                        <div class="stat-label">当前活跃连接</div>
+                        <div class="stat-trend trend-down">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>-3.2% 较上小时</span>
+                        </div>
+                    </div>
+                    
+                    <!-- QPS统计 -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon icon-chart">📊</div>
+                                请求处理
+                            </div>
+                        </div>
+                        <div class="stat-number" id="qps-count">1,247</div>
+                        <div class="stat-label">当前QPS</div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+8.7% 较上小时</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 拦截IP数 -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <div class="card-icon icon-alert">🚨</div>
+                                恶意IP
+                            </div>
+                        </div>
+                        <div class="stat-number" id="blocked-ip-count">23</div>
+                        <div class="stat-label">今日封禁IP</div>
+                        <div class="stat-trend trend-down">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>-5.1% 较昨日</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 图表区域 -->
+                <div class="dashboard-grid" style="grid-template-columns: 2fr 1fr; gap: 24px;">
+                    <!-- 攻击趋势图 -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-title">攻击趋势</div>
+                        </div>
+                        <div class="chart-container" id="attack-trend-chart"></div>
+                    </div>
+                    
+                    <!-- 威胁情报 -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-title">威胁情报</div>
+                        </div>
+                        <div id="threat-intel-list">
+                            <!-- 动态加载威胁情报数据 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 攻击日志视图 -->
+            <div id="logs-view" style="display: none;" class="fade-in">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title">攻击日志</div>
+                        <div class="search-box">
+                            <input type="text" class="search-input" id="log-search" placeholder="搜索IP、规则或URI...">
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <table class="waf-table">
+                        <thead>
+                            <tr>
+                                <th>时间</th>
+                                <th>IP地址</th>
+                                <th>攻击类型</th>
+                                <th>URI</th>
+                                <th>风险等级</th>
+                                <th>处理动作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logs-table-body">
+                            <!-- 动态加载日志数据 -->
+                        </tbody>
+                    </table>
+                    
+                    <div class="pagination" id="logs-pagination">
+                        <!-- 动态生成分页 -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 规则管理视图 -->
+            <div id="rules-view" style="display: none;" class="fade-in">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title">防护规则</div>
+                        <button class="btn-primary" onclick="addNewRule()">
+                            <i class="fas fa-plus"></i>
+                            添加规则
+                        </button>
+                    </div>
+                    
+                    <table class="waf-table">
+                        <thead>
+                            <tr>
+                                <th>规则名称</th>
+                                <th>类型</th>
+                                <th>优先级</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rules-table-body">
+                            <!-- 动态加载规则数据 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 设置视图 -->
+            <div id="settings-view" style="display: none;" class="fade-in">
+                <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px;">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-title">基本设置</div>
+                        </div>
+                        <form id="basic-settings-form">
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">WAF状态</label>
+                                <select class="form-control" name="waf_enabled">
+                                    <option value="true">启用</option>
+                                    <option value="false">禁用</option>
+                                </select>
+                            </div>
+                            
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">日志级别</label>
+                                <select class="form-control" name="log_level">
+                                    <option value="debug">调试</option>
+                                    <option value="info" selected>信息</option>
+                                    <option value="warn">警告</option>
+                                    <option value="error">错误</option>
+                                </select>
+                            </div>
+                            
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">拦截动作</label>
+                                <select class="form-control" name="block_action">
+                                    <option value="403">返回403</option>
+                                    <option value="404">返回404</option>
+                                    <option value="redirect">重定向</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">保存设置</button>
+                        </form>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-title">性能设置</div>
+                        </div>
+                        <form id="performance-settings-form">
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">速率限制 (QPS)</label>
+                                <input type="number" class="form-control" name="rate_limit" value="1000" min="1" max="10000">
+                            </div>
+                            
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">缓存大小 (MB)</label>
+                                <input type="number" class="form-control" name="cache_size" value="50" min="10" max="500">
+                            </div>
+                            
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">
+                                    <input type="checkbox" name="learning_mode"> 学习模式
+                                </label>
+                                <small style="color: #718096;">仅记录不拦截，用于规则调优</small>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">保存设置</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/plugins/file?name=waf_plus&f=js/waf_plus.js"></script>
+<script>
+// 页面初始化
+document.addEventListener('DOMContentLoaded', function() {
+    // 默认显示仪表板
+    showDashboard();
+    
+    // 绑定搜索事件
+    document.getElementById('log-search').addEventListener('input', debounce(searchLogs, 500));
+    
+    // 绑定表单提交事件
+    document.getElementById('basic-settings-form').addEventListener('submit', saveBasicSettings);
+    document.getElementById('performance-settings-form').addEventListener('submit', savePerformanceSettings);
+});
+
+// 防抖函数
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// 视图切换函数
+function showDashboard() {
+    hideAllViews();
+    document.getElementById('dashboard-view').style.display = 'block';
+    loadDashboardData();
+}
+
+function showAttackLogs() {
+    hideAllViews();
+    document.getElementById('logs-view').style.display = 'block';
+    loadAttackLogs();
+}
+
+function showRules() {
+    hideAllViews();
+    document.getElementById('rules-view').style.display = 'block';
+    loadRules();
+}
+
+function showThreatIntel() {
+    hideAllViews();
+    // 威胁情报视图逻辑
+}
+
+function showSettings() {
+    hideAllViews();
+    document.getElementById('settings-view').style.display = 'block';
+    loadSettings();
+}
+
+function hideAllViews() {
+    const views = ['dashboard-view', 'logs-view', 'rules-view', 'settings-view'];
+    views.forEach(viewId => {
+        document.getElementById(viewId).style.display = 'none';
+    });
+}
+
+// API调用函数
+async function wafPlusPost(method, args = {}) {
+    try {
+        const response = await fetch('/plugins/run', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: 'waf_plus',
+                func: method,
+                args: JSON.stringify(args)
+            })
+        });
+        
+        const data = await response.json();
+        if (!data.status) {
+            throw new Error(data.msg);
+        }
+        return data;
+    } catch (error) {
+        console.error('API调用失败:', error);
+        throw error;
+    }
+}
+
+// 数据加载函数
+async function loadDashboardData() {
+    try {
+        showLoading(true);
+        const data = await wafPlusPost('dashboard');
+        renderDashboard(data.data);
+        showLoading(false);
+    } catch (error) {
+        showError('加载仪表板数据失败: ' + error.message);
+        showLoading(false);
+    }
+}
+
+async function loadAttackLogs(page = 1, pageSize = 20, search = '') {
+    try {
+        showLoading(true);
+        const data = await wafPlusPost('logs', { page, page_size: pageSize, search });
+        renderAttackLogs(data.data);
+        showLoading(false);
+    } catch (error) {
+        showError('加载攻击日志失败: ' + error.message);
+        showLoading(false);
+    }
+}
+
+async function loadRules() {
+    try {
+        showLoading(true);
+        const data = await wafPlusPost('rules');
+        renderRules(data.data);
+        showLoading(false);
+    } catch (error) {
+        showError('加载规则失败: ' + error.message);
+        showLoading(false);
+    }
+}
+
+// 渲染函数
+function renderDashboard(data) {
+    // 更新统计数字
+    document.getElementById('attack-count').textContent = formatNumber(data.real_time_stats.recent_attacks);
+    document.getElementById('connection-count').textContent = data.real_time_stats.active_connections;
+    document.getElementById('qps-count').textContent = formatNumber(data.real_time_stats.current_qps);
+    document.getElementById('blocked-ip-count').textContent = data.real_time_stats.blocked_ips;
+    
+    // 渲染攻击趋势图
+    renderAttackTrendChart(data.attack_trends);
+    
+    // 渲染威胁情报
+    renderThreatIntel(data.threat_intel);
+}
+
+function renderAttackLogs(data) {
+    const tbody = document.getElementById('logs-table-body');
+    tbody.innerHTML = '';
+    
+    data.logs.forEach(log => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${formatDateTime(log.attack_time)}</td>
+            <td>${log.ip}</td>
+            <td>${log.rule_name}</td>
+            <td class="td3txt">${log.uri || '-'}</td>
+            <td><span class="badge badge-${log.risk_level}">${log.risk_level}</span></td>
+            <td>${log.action_taken}</td>
+        `;
+        tbody.appendChild(row);
+    });
+    
+    // 渲染分页
+    renderPagination(data.total, data.page, data.pages, data.page_size);
+}
+
+function renderRules(rules) {
+    const tbody = document.getElementById('rules-table-body');
+    tbody.innerHTML = '';
+    
+    rules.forEach(rule => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${rule.name}</td>
+            <td>${rule.type}</td>
+            <td>${rule.priority}</td>
+            <td>
+                <span class="status-indicator">
+                    <div class="status-dot ${rule.status === 'enabled' ? 'status-active' : 'status-inactive'}"></div>
+                    ${rule.status === 'enabled' ? '启用' : '禁用'}
+                </span>
+            </td>
+            <td>
+                <button class="btn-secondary" onclick="editRule(${rule.id})">编辑</button>
+                <button class="btn-secondary" onclick="deleteRule(${rule.id})">删除</button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// 工具函数
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function formatDateTime(timestamp) {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleString('zh-CN');
+}
+
+function showLoading(show) {
+    // 显示/隐藏加载动画
+}
+
+function showError(message) {
+    // 显示错误消息
+}
+
+function showSuccess(message) {
+    // 显示成功消息
+}
+
+// 搜索和分页
+function searchLogs() {
+    const searchTerm = document.getElementById('log-search').value;
+    loadAttackLogs(1, 20, searchTerm);
+}
+
+function renderPagination(total, currentPage, totalPages, pageSize) {
+    const pagination = document.getElementById('logs-pagination');
+    pagination.innerHTML = '';
+    
+    // 上一页
+    if (currentPage > 1) {
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'page-btn';
+        prevBtn.textContent = '上一页';
+        prevBtn.onclick = () => loadAttackLogs(currentPage - 1, pageSize);
+        pagination.appendChild(prevBtn);
+    }
+    
+    // 页码
+    for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+        pageBtn.textContent = i;
+        pageBtn.onclick = () => loadAttackLogs(i, pageSize);
+        pagination.appendChild(pageBtn);
+    }
+    
+    // 下一页
+    if (currentPage < totalPages) {
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'page-btn';
+        nextBtn.textContent = '下一页';
+        nextBtn.onclick = () => loadAttackLogs(currentPage + 1, pageSize);
+        pagination.appendChild(nextBtn);
+    }
+}
+
+// 图表渲染（简化版本）
+function renderAttackTrendChart(trends) {
+    const chartContainer = document.getElementById('attack-trend-chart');
+    chartContainer.innerHTML = '<div style="height:100%;display:flex;align-items:center;justify-content:center;color:#718096;">图表加载中...</div>';
+    
+    // 这里应该使用真正的图表库如ECharts
+    setTimeout(() => {
+        chartContainer.innerHTML = `
+            <div style="height:100%;display:flex;flex-direction:column;justify-content:space-around;padding:20px;">
+                ${trends.map((trend, index) => `
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <div style="font-size:12px;color:#718096;width:80px;">${trend.date}</div>
+                        <div style="flex:1;height:20px;background:#e2e8f0;border-radius:10px;overflow:hidden;">
+                            <div style="height:100%;width:${(trend.attacks / 200) * 100}%;background:linear-gradient(90deg,#4299e1,#3182ce);border-radius:10px;"></div>
+                        </div>
+                        <div style="font-size:12px;color:#4a5568;width:60px;">${trend.attacks}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }, 1000);
+}
+
+function renderThreatIntel(intel) {
+    const intelList = document.getElementById('threat-intel-list');
+    intelList.innerHTML = `
+        <div style="padding:16px 0;">
+            <div style="margin-bottom:16px;">
+                <div style="font-weight:500;margin-bottom:8px;">今日恶意IP</div>
+                <div style="font-size:24px;font-weight:700;color:#e53e3e;">${intel.malicious_ips_today}</div>
+            </div>
+            <div style="margin-bottom:16px;">
+                <div style="font-weight:500;margin-bottom:8px;">新增威胁</div>
+                <div style="font-size:24px;font-weight:700;color:#ed8936;">${intel.new_threats_detected}</div>
+            </div>
+            <div>
+                <div style="font-weight:500;margin-bottom:8px;">高危国家</div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                    ${intel.high_risk_countries.map(country => 
+                        `<span style="background:#fed7d7;color:#c53030;padding:4px 8px;border-radius:12px;font-size:12px;">${country}</span>`
+                    ).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+}
+</script>

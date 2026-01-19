@@ -1,0 +1,29 @@
+{
+    "hook": [
+        {
+            "tag": "site_cb",
+            "site_cb": {
+                "title": "网站统计",
+                "name": "waf_plus",
+                "add": {"func": "reload_hook"},
+                "update": {"func": "reload_hook"},
+                "delete": {"func": "reload_hook"}
+            }
+        }
+    ],
+    "sort": 1,
+    "title": "Web防火墙增强版",
+    "tip": "soft",
+    "name": "waf_plus",
+    "type": "安全防护",
+    "ps": "新一代Web应用防火墙，提供智能威胁检测和实时监控",
+    "install_pre_inspection": true,
+    "shell": "install.sh",
+    "checks": "server/waf_plus",
+    "path": "server/waf_plus",
+    "author": "Security Team",
+    "home": "https://github.com/security/waf-plus",
+    "date": "2024-01-01",
+    "pid": "2",
+    "versions": ["1.0.0"]
+}

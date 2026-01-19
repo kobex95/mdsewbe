@@ -1,0 +1,20 @@
+{
+	"sort": 3,
+	"title":"Docker Compose",
+	"tip":"tool",
+	"name":"docker_compose",
+	"type":"系统工具",
+	"ps":"Docker Compose项目管理工具",
+	"shell":"",
+	"install_pre_inspection":true,
+	"uninstall_pre_inspection":true,
+	"checks":"plugins/docker_compose",
+	"path":"plugins/docker_compose",
+	"author":"docker",
+	"home":"https://docs.docker.com/compose/",
+	"date":"2024-01-19",
+	"pid": "4",
+	"versions": ["1.0"],
+	"updates": ["1.0"],
+	"hook": ["menu"]
+}

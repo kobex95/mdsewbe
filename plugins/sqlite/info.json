@@ -1,0 +1,20 @@
+{
+	"sort": 5,
+	"title":"SQLite",
+	"tip":"database",
+	"name":"sqlite",
+	"type":"数据软件",
+	"ps":"轻量级嵌入式数据库管理系统",
+	"shell":"",
+	"install_pre_inspection":false,
+	"uninstall_pre_inspection":false,
+	"checks":"plugins/sqlite",
+	"path":"plugins/sqlite",
+	"author":"sqlite",
+	"home":"https://www.sqlite.org",
+	"date":"2024-01-19",
+	"pid": "2",
+	"versions": ["3.40.0"],
+	"updates": ["3.40.0"],
+	"hook": ["database"]
+}

@@ -1,0 +1,112 @@
+<div class="bt-form">
+	<div class='plugin_version'></div>
+	<div class="bt-w-main">
+		<div class="bt-w-menu">
+			<p class="bgw" onclick="sqlitePluginService('sqlite',$('.plugin_version').attr('version'));">服务</p>
+			<p onclick="sqliteDatabaseList();">数据库管理</p>
+			<p onclick="sqliteQueryEditor();">SQL查询</p>
+			<p onclick="sqliteTableStructure();">表结构</p>
+			<p onclick="sqliteBackupManager();">备份管理</p>
+			<p onclick="sqliteQueryHistory();">查询历史</p>
+			<p onclick="sqliteSettings();">设置</p>
+		</div>
+		<div class="bt-w-con pd15" style="height:555px;overflow: auto;">
+			<div class="soft-man-con"></div>
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+.sqlite-db-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background: #fafafa;
+}
+.sqlite-db-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+.sqlite-db-info {
+    font-size: 12px;
+    color: #666;
+    margin: 3px 0;
+}
+.sqlite-table-item {
+    padding: 10px;
+    border: 1px solid #eee;
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+.sqlite-query-editor {
+    width: 100%;
+    height: 200px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+.sqlite-query-result {
+    margin-top: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.sqlite-result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.sqlite-result-table th,
+.sqlite-result-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.sqlite-result-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+.sqlite-history-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+.sqlite-history-query {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #555;
+    margin: 5px 0;
+}
+.sqlite-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+.sqlite-stat-card {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+}
+.sqlite-stat-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+}
+.sqlite-stat-label {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+</style>
+
+<script type="text/javascript">
+$.getScript( "/plugins/file?name=sqlite&f=js/sqlite.js", function(){
+	sqlitePluginService('sqlite',$('.plugin_version').attr('version'));
+});
+</script>

@@ -1,0 +1,77 @@
+#!/bin/bash
+# Nginx启动脚本
+
+### BEGIN INIT INFO
+# Provides:          nginx
+# Required-Start:    $local_fs $remote_fs $network $syslog
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts the nginx web server
+# Description:       starts nginx using start-stop-daemon
+### END INIT INFO
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON={$SERVER_PATH}/nginx/sbin/nginx
+NAME=nginx
+DESC=nginx
+CONF={$SERVER_PATH}/nginx/conf/nginx.conf
+PID={$SERVER_PATH}/nginx/logs/nginx.pid
+
+test -x $DAEMON || exit 0
+
+set -e
+
+. /lib/lsb/init-functions
+
+case "$1" in
+  start)
+    echo -n "Starting $DESC: "
+    start-stop-daemon --start --quiet --pidfile $PID \
+        --exec $DAEMON -- -c $CONF
+    echo "$NAME."
+    ;;
+  stop)
+    echo -n "Stopping $DESC: "
+    start-stop-daemon --stop --quiet --pidfile $PID \
+        --exec $DAEMON
+    echo "$NAME."
+    ;;
+  restart|force-reload)
+    echo -n "Restarting $DESC: "
+    start-stop-daemon --stop --quiet --pidfile \
+        $PID --exec $DAEMON
+    sleep 1
+    start-stop-daemon --start --quiet --pidfile \
+        $PID --exec $DAEMON -- -c $CONF
+    echo "$NAME."
+    ;;
+  reload)
+    echo -n "Reloading $DESC configuration: "
+    start-stop-daemon --stop --signal HUP --quiet --pidfile $PID \
+        --exec $DAEMON
+    echo "$NAME."
+    ;;
+  status)
+    if [ -f $PID ]; then
+        PIDNUM=`cat $PID`
+        if kill -0 $PIDNUM 2>/dev/null; then
+            echo "$NAME is running"
+            exit 0
+        else
+            echo "$NAME is not running but pid file exists"
+            exit 1
+        fi
+    else
+        echo "$NAME is not running"
+        exit 3
+    fi
+    ;;
+  *)
+    N=/etc/init.d/$NAME
+    echo "Usage: $N {start|stop|restart|reload|force-reload|status}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0
