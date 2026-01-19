@@ -228,6 +228,9 @@ if [ $OSNAME != "macos" ];then
 		rm -rf /tmp/mdsewbe-master
 	fi
 
+	# 修复目录结构
+	cd /www/server/mdserver-web && bash scripts/fix_directories.sh
+
 	# install acme.sh
 	if [ ! -d /root/.acme.sh ];then
 	    if [ "$LOCAL_ADDR" != "common" ];then
